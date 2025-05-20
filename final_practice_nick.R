@@ -205,3 +205,19 @@ ggplot(substance_table, aes(x=Smoking, y=Count, fill=HeartDisease)) +
        x="Smoking Status", y="Count") +
   theme_minimal()
 
+#last checkup time
+Check_up_table <- heart_data_no_nans_22 %>%
+  group_by(HadHeartAttack, State, LastCheckupTime) %>%
+  summarise(Count = n(), .groups = "drop")
+
+colnames(Check_up_table)[colnames(Check_up_table) == "HadHeartAttack"] <- "HeartDisease"
+
+ggplot(Check_up_table, aes(x = State, y = Count, fill = LastCheckupTime)) +
+  geom_bar(stat = "identity") +
+  labs(title = "State Cases by LastCheckupTime",
+       x = "State",
+       y = "Count",
+       fill = "LastCheckupTime") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10)) +
+  coord_flip()
