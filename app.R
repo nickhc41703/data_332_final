@@ -382,11 +382,20 @@ server <- function(input, output, session) {
   
   
   result <- eventReactive(input$go, {
-    nd   <- newdat()
-    prob <- predict(model, nd,   type = "prob")$.pred_Yes
-    cls  <- predict(model, nd,   type = "class")$.pred_class
+    nd <- tibble(
+      GeneralHealth      = factor(input$genHealth,  levels = c("Excellent","Very good","Good","Fair","Poor")),
+      PhysicalHealthDays = input$physDays,
+      HadAngina          = factor(input$angina,     levels = c("No","Yes")),
+      HadStroke          = factor(input$stroke,     levels = c("No","Yes")),
+      HadDiabetes        = factor(input$diabetes,   levels = c("No","Yes")),
+      MentalHealthDays   = input$mhdays,
+      SleepHours         = input$sleep
+    )
+    prob <- predict(model, nd, type = "prob")$.pred_Yes
+    cls  <- predict(model, nd, type = "class")$.pred_class
     list(class = cls, prob = prob)
   })
+  
   
   
   output$outText <- renderText({

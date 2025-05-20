@@ -1,8 +1,7 @@
-# train_model_simple.R
-
 library(tidymodels)
+library(dplyr)
 
-# 1. Load & rename
+# 2. Read & rename
 df <- readRDS("DataClean/heart_2022_no_nans.rds") %>%
   rename(HeartDisease = HadHeartAttack) %>%
   mutate(
@@ -13,32 +12,36 @@ df <- readRDS("DataClean/heart_2022_no_nans.rds") %>%
     HadDiabetes       = factor(HadDiabetes,       levels = c("No","Yes"))
   )
 
-# 2. Train/test split
 splits <- initial_split(df, prop = 0.8, strata = HeartDisease)
 train  <- training(splits)
 test   <- testing(splits)
 
-# 3. Recipe on three real columns
-rec_simple <- recipe(HeartDisease ~ PhysicalHealthDays + MentalHealthDays + SleepHours,
-                     data = train) %>%
+# 4. Recipe on the 7 predictors (no dummy for numeric; factors are left as-is)
+rec_simple <- recipe(
+  HeartDisease ~ GeneralHealth +
+    PhysicalHealthDays +
+    HadAngina +
+    HadStroke +
+    HadDiabetes +
+    MentalHealthDays +
+    SleepHours,
+  data = train
+) %>%
   step_normalize(all_numeric_predictors())
 
-# 4. Model spec
-log_mod <- logistic_reg() %>% set_engine("glm")
-
-# 5. Workflow
+# 5. Model spec & workflow
 wf_simple <- workflow() %>%
-  add_model(log_mod) %>%
+  add_model(logistic_reg() %>% set_engine("glm")) %>%
   add_recipe(rec_simple)
 
 # 6. Fit
 fit_simple <- fit(wf_simple, data = train)
 
-# 7. Optional evaluation
+# 7. Quick check
 preds <- predict(fit_simple, test, type = "prob") %>%
   bind_cols(test)
-roc_auc(preds, truth = HeartDisease, .pred_Yes) %>% print()
+print( roc_auc(preds, truth = HeartDisease, .pred_Yes) )
 
-# 8. Save
+# 8. Save (overwrite the old simple model)
 dir.create("models", showWarnings = FALSE)
 saveRDS(fit_simple, "DataClean/heart_model_simple.rds")
