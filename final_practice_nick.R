@@ -113,25 +113,25 @@ tree_model <- rpart(HeartDisease ~ ., data=heart_data_tree_2020, method="class")
 plot(tree_model)
 text(tree_model)
 #eh
-svm_model <- svm(HeartDisease ~ ., data=heart_data)
-summary(svm_model)
+#svm_model <- svm(HeartDisease ~ ., data=heart_data)
+#summary(svm_model)
 
-heart_data_pca <- readRDS("heart.rds")
-heart_data_pca$Sex <- as.numeric(factor(heart_data_pca$Sex))
-heart_data_pca$ChestPainType <- as.numeric(factor(heart_data_pca$ChestPainType))
-heart_data_pca$RestingECG <- as.numeric(factor(heart_data_pca$RestingECG))
-heart_data_pca$ExerciseAngina <- as.numeric(factor(heart_data_pca$ExerciseAngina))
-heart_data_pca$ST_Slope <- as.numeric(factor(heart_data_pca$ST_Slope))
+#heart_data_pca <- readRDS("heart.rds")
+#heart_data_pca$Sex <- as.numeric(factor(heart_data_pca$Sex))
+#heart_data_pca$ChestPainType <- as.numeric(factor(heart_data_pca$ChestPainType))
+#heart_data_pca$RestingECG <- as.numeric(factor(heart_data_pca$RestingECG))
+#heart_data_pca$ExerciseAngina <- as.numeric(factor(heart_data_pca$ExerciseAngina))
+#heart_data_pca$ST_Slope <- as.numeric(factor(heart_data_pca$ST_Slope))
 
-pca <- prcomp(heart_data_pca[, -which(names(heart_data_pca) == "HeartDisease")], scale=TRUE)
-summary(pca)
+#pca <- prcomp(heart_data_pca[, -which(names(heart_data_pca) == "HeartDisease")], scale=TRUE)
+#summary(pca)
 
 # Select relevant numeric columns for correlation for 2020 table
-correlation_selection_2 <- heart_data_cleaned_20 %>% select(`HeartDisease`, `BMI`, `Smoking`, `AlcoholDrinking`)
+#correlation_selection_2 <- heart_data_cleaned_20 %>% select(`HeartDisease`, `BMI`, `Smoking`, `AlcoholDrinking`)
 
 # Compute correlation matrix and convert to data frame for 2020 table need work
-cor_matrix_2 <- cor(correlation_selection_2, use="complete.obs")
-cor_df_2 <- as.data.frame(as.table(cor_matrix_2))
+#cor_matrix_2 <- cor(correlation_selection_2, use="complete.obs")
+#cor_df_2 <- as.data.frame(as.table(cor_matrix_2))
 
 # pivoting on heart disease and race
 race_table <- heart_data_cleaned_20 %>%
