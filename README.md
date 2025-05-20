@@ -33,14 +33,17 @@ Substance table: smoking increases the chances of having heart disease
 We noticed that the difference between POC and White people who went to the hospital was drastic. 
 
 ### Graph
-![Alt text](https://github.com/nickhc41703/Data_332_assignments/blob/main/Homework/counting_cars/images/Screenshot%202025-04-15%20213715.png)
-
-
-
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/Check_Up.png)
 
 ### more graphs
-![Alt text](https://github.com/nickhc41703/Data_332_assignments/blob/main/Homework/counting_cars/images/Screenshot%202025-04-15%20213758.png)
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/heartdisease.png)
 
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/physical_activity.png)
 
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/race_2020.png)
 
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/race_2022.png)
 
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/smoking.png)
+
+![Alt text](https://github.com/nickhc41703/data_332_final/blob/main/images/state.png)
